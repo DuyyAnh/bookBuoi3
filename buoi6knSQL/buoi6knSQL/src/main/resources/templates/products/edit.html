@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1>Edit Product</h1>
+    <form th:action="@{/products/edit/{id}(id=${product.id})}" th:object="${product}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" class="form-control bg-white" id="name" placeholder="name" th:field="*{name}">
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="image">Image</label>
+            <input type="text" class="form-control bg-white" id="image" placeholder="image" th:field="*{image}">
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="price">Price</label>
+            <input type="text" class="form-control bg-white" id="price" placeholder="Price" th:field="*{price}">
+        </div>
+        <input type="submit" value="Save">
+    </form>
+    <br>
+    <a th:href="@{/products}">Back to list</a>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1>ADD PRODUCT</h1>
+    <form th:action="@{/products/create}" th:object="${product}" method="post" enctype="multipart/form-data">
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name">
+
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="image">Image</label>
+            <input class="form-control" type="file" id="image" name="imageProduct" accept="image/png, image/jpg">
+            <div class="alert alert-warning"  th:if="${#fields.hasErrors('image')}" th:error="*{image}" ></div>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="price">Price</label>
+            <input class="form-control" type="text" th:field="*{price}" id="price">
+
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <br>
+    <a th:href="@{/products}">Back to list </a>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
