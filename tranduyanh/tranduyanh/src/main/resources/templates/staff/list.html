@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+       >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Nhân Viên</title>
+  <th:block th:replace="layout::link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout::header"></th:block>
+<form class="container" th:action="@{/staffs/search}" method="get">
+  <input class="form-control flex-grow-1" type="search" name="searchText" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success flex-grow-1" type="submit">Search</button>
+</form>
+<div class="container">
+  <h1 th:text=${title}></h1>
+  <table class="table">
+    <tr>
+      <th>Mã Nhân Viên</th>
+      <th>Tên Nhân Viên</th>
+      <th>Giới tính</th>
+      <th>Nơi sinh</th>
+      <th>Tên phòng</th>
+      <th>Lương</th>
+      <th sec:authorize="hasAnyAuthority('ADMIN')">Action</th>
+    </tr>
+    <tr th:each="staff: ${staffs}">
+      <td th:text="${staff.id}"></td>
+      <td th:text="${staff.name}"></td>
+      <td>
+      <span th:if="${staff.sex == 'NAM'}">
+        <i class="fa fa-male" style="color: red;"></i> <!-- Icon phái nam -->
+      </span>
+        <span th:if="${staff.sex == 'NU'}">
+        <i class="fa fa-female" style="color: pink;"></i> <!-- Icon phái nữ -->
+      </span>
+      </td>
+      <td th:text="${staff.place}"></td>
+      <td th:text="${staff.category.phongban}"></td>
+      <td th:text="${staff.luong}"></td>
+      <td sec:authorize="hasAnyAuthority('ADMIN')">
+        <a th:href="@{/staffs/edit/{id}(id=${staff.id})}"><i style="color: #2760b0;">Edit</i></a> |
+        <a th:href="@{/staffs/delete/{id}(id=${staff.id})}" onclick="return confirm('Are you sure about that?')"><i  style="color: #2760b0;">Delete</i></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<th:block th:replace="layout::footer"></th:block>
+</body>
+</html>

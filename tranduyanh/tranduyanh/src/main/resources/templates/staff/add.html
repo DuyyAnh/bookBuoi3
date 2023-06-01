@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <th:block th:replace="layout :: link-css"></th:block>
+  <title>Add Staff</title>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Add Staff</h1>
+  <form th:action="@{/staffs/add}" th:object="${staff}" method="post">
+    <div class="col-6 mb-3">
+      <label class="form-label" for="name">Name</label>
+      <input type="text" class="form-control bg-white" id="name" placeholder="Name" th:field="*{name}">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="sex">Sex</label>
+      <input type="text" class="form-control bg-white" id="sex" placeholder="Sex" th:field="*{sex}">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="place">Place</label>
+      <input type="text" class="form-control bg-white" id="place" placeholder="Place" th:field="*{place}">
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="category">Phòng Ban</label>
+      <select class="form-control" id="category" th:field="*{category.maphongban}">
+        <option value=""> ==Select Category== </option>
+        <option th:each="category : ${categories}" th:value="${category.maphongban}"
+                th:text="${category.phongban}"></option>
+      </select>
+    </div>
+    <div class="col-6 mb-3">
+      <label class="form-label" for="luong">Luong</label>
+      <input type="text" class="form-control bg-white" id="luong" placeholder="Luong" th:field="*{luong}">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Save">
+  </form>
+  <br>
+  <a th:href="@{/books}">Back to list</a>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
